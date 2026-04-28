@@ -94,7 +94,6 @@ class SendEmailView(APIView):
             """
             plain_message = f"Имя: {name or 'Не указано'}\nКонтакт: {contact}\nВопрос: {text}"
 
-            # Формируем письмо
             msg = MIMEMultipart('alternative')
             msg['Subject'] = subject
             msg['From'] = settings.EMAIL_HOST_USER
@@ -102,7 +101,6 @@ class SendEmailView(APIView):
             msg.attach(MIMEText(plain_message, 'plain'))
             msg.attach(MIMEText(html_message, 'html'))
 
-            # Отключаем проверку SSL-сертификата (только для разработки)
             context = ssl.create_default_context()
             context.check_hostname = False
             context.verify_mode = ssl.CERT_NONE
